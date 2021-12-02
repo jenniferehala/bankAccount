@@ -1,47 +1,60 @@
 public class BankAccount {
 
 
-    public double checking;
-    public double savings;
+    private double checking;
+    private double savings;
+    private static int totalAccts = 0;
+    private static double totalBalance = 0;
 
 
-// Static Member Variable | Attribute
-public static int numOfAccts;
-public static double totalAmt;
-
-
-// Constructor //
-    public BankAccount () {
-        numOfAccts++;
-    }
-
-    public BankAccount(double checking, double savings){
-        this.checking = checking;
-        this.savings = savings;
-        numOfAccts++;
-
+    public BankAccount(){
+        checking = 0.0;
+        totalAccts++;
     }
 
 
-// Static Method //
-    public static int getNumOfAccts(){
-        return numOfAccts;
+    public void deposit(String acctType, double depositAmt){
+        if(acctType == "checking"){
+            checking += depositAmt;
+            totalBalance += depositAmt;
+        }
+        else if(acctType == "savings"){
+            savings += depositAmt;
+            totalBalance += depositAmt;
+        }
     }
 
-// Getter Methods //
-    public double getCheckingAcctBal(){
+    public void withdraw(String acctType, double withdrawAmt){
+        if(acctType == "checking"){
+            checking -= withdrawAmt;
+            totalBalance -= withdrawAmt;
+        }
+        else if(acctType == "savings"){
+            if(savings > withdrawAmt ){
+                System.out.println("Can't do that");
+                return;
+            }
+            savings -= withdrawAmt;
+            totalBalance -= withdrawAmt;
+
+        }
+
+    }
+
+    public int getTotalAccts(){
+        return totalAccts;
+    }
+
+    public double getBalanceChecking(){
         return checking;
     }
 
-    public double getSavingsAcctBal(){
+    public double getBalanceSavings(){
         return savings;
     }
 
-// Setter Methods //
-    public void depositChecking(double checking){
-        this.checking = checking;
-        System.out.println("This is my current checking " + checking);
-        return checking;
+        public double getTotalBalance(){
+        return totalBalance;
     }
 
 }
